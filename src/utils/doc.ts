@@ -1,5 +1,5 @@
 // 定义移动设备最大宽度
-const MOBILE_MAX_WIDTH = 1023;
+const MOBILE_MAX_WIDTH = 1024;
 
 /**
  * 是否为浏览器环境
