@@ -104,7 +104,7 @@ export default function Header({ className }: IHeaderProps) {
           </svg>
         </h1>
 
-        <div className="animate__animated animate__bounceInLeft mx-auto mt-6 max-w-2xl break-all text-center text-xl text-black/60 sm:max-w-3xl">
+        <div className="animate__animated animate__bounceInLeft mx-auto mt-6 max-w-2xl break-all text-center text-xl text-black/80 sm:max-w-3xl">
           <div className="h-[52px]">
             <span ref={descRef} />
           </div>

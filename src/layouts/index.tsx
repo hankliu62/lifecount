@@ -1,4 +1,5 @@
 import dynamic from 'next/dynamic';
+import { useRouter } from 'next/router';
 import type { ReactNode } from 'react';
 
 import useTopWindow from '@/hooks/useTopWindow';
@@ -16,6 +17,7 @@ interface LayoutProps {
 }
 
 export default function DefaultLayout({ children }: LayoutProps) {
+  const router = useRouter();
   const isTop = useTopWindow();
 
   return (
@@ -33,7 +35,7 @@ export default function DefaultLayout({ children }: LayoutProps) {
         </main>
 
         {/* footer */}
-        {isTop && <Footer />}
+        {!!(isTop || router.query?.['with-header']) && <Footer />}
       </div>
     </>
   );
