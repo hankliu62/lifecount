@@ -3,12 +3,12 @@ import { useCallback, useEffect, useState } from 'react';
 export default function useAnchor(menus: { id: string | number; title: string }[]) {
   const [currentSection, setCurrentSection] = useState(menus[0]?.id || menus[0]?.title);
 
-  const getHeadings = useCallback((menus) => {
+  const getHeadings = useCallback((innerMenus) => {
     // .flatMap((node) => [
     //   node.id,
     //   ...node.children.map((child) => child.id),
     // ])
-    return menus.map(({ id }) => {
+    return innerMenus.map(({ id }) => {
       const el = document.getElementById(id);
       if (!el) return;
 

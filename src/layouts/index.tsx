@@ -1,5 +1,5 @@
 import dynamic from 'next/dynamic';
-import { ReactNode } from 'react';
+import type { ReactNode } from 'react';
 
 import useTopWindow from '@/hooks/useTopWindow';
 

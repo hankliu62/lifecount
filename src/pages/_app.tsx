@@ -10,10 +10,10 @@ import '@hankliu/rc-exception/assets/index.css';
 import moment from 'moment';
 import { ConfigProvider, Watermark } from '@hankliu/hankliu-ui';
 import zhCN from '@hankliu/hankliu-ui/lib/locale/zh_CN';
-import { NextPage } from 'next';
+import type { NextPage } from 'next';
 import type { AppProps } from 'next/app';
 import Head from 'next/head';
-import { ReactElement, ReactNode } from 'react';
+import type { ReactElement, ReactNode } from 'react';
 
 import useTopWindow from '@/hooks/useTopWindow';
 import DefaultLayout from '@/layouts/index';

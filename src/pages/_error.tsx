@@ -2,7 +2,7 @@ import NoHeaderLayout from '@/layouts/no-header';
 import Exception from '@hankliu/rc-exception';
 import { Button } from '@hankliu/hankliu-ui';
 import router from 'next/router';
-import { ReactElement } from 'react';
+import type { ReactElement } from 'react';
 
 function ErrorPage({ statusCode }) {
   return (

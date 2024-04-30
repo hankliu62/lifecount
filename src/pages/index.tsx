@@ -1,6 +1,7 @@
 import AOS from 'aos';
 import React, { useEffect, useMemo, useState } from 'react';
-import moment, { Moment } from 'moment';
+import type { Moment } from 'moment';
+import moment from 'moment';
 import { Card, Tooltip } from '@hankliu/hankliu-ui';
 
 import Birthday from '@/components/Birthday';

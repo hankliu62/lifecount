@@ -1,7 +1,8 @@
-import { Calendar, CalendarProps, Input } from '@hankliu/hankliu-ui';
+import type { CalendarProps } from '@hankliu/hankliu-ui';
+import { Calendar, Input } from '@hankliu/hankliu-ui';
 import classNames from 'classnames';
-import { Dayjs } from 'dayjs';
-import moment, { Moment } from 'moment';
+import type { Moment } from 'moment';
+import moment from 'moment';
 import { HolidayUtil, Lunar } from 'lunar-typescript';
 import React, { useCallback, useState } from 'react';
 import { CloseOutlined, IconCycle } from '@hankliu/icons';
@@ -17,11 +18,15 @@ const Birthday = ({ value, onChange }: IBirthdayProps) => {
   // 是否展开
   const [expanded, setExpanded] = useState<boolean>(false);
 
-  const dateFullCellRender: CalendarProps<Moment>['dateFullCellRender'] = (date) => {
-    const d = Lunar.fromDate(date.toDate());
+  const dateFullCellRender: CalendarProps<Moment>['dateFullCellRender'] = (currentDate) => {
+    const d = Lunar.fromDate(currentDate.toDate());
     const lunar = d.getDayInChinese();
     const solarTerm = d.getJieQi();
-    const h = HolidayUtil.getHoliday(date.get('year'), date.get('month') + 1, date.get('date'));
+    const h = HolidayUtil.getHoliday(
+      currentDate.get('year'),
+      currentDate.get('month') + 1,
+      currentDate.get('date'),
+    );
     const displayHoliday = h?.getTarget() === h?.getDay() ? h?.getName() : undefined;
     return (
       <div
@@ -29,8 +34,8 @@ const Birthday = ({ value, onChange }: IBirthdayProps) => {
           "hlui-picker-cell-inner hlui-picker-calendar-date !rounded-[4px] !bg-transparent !p-4 transition-[background] duration-300 before:absolute before:bottom-0 before:left-0 before:right-0 before:top-0 before:rounded-[4px] before:content-[''] hover:before:bg-black/5",
           {
             'text-white before:bg-[#1677ff] hover:before:!bg-[#1677ff] hover:before:opacity-80':
-              selectDate?.isSame(date, 'date'),
-            'hover:before:border-[1px_solid_#1677ff]': date.isSame(moment(), 'date'),
+              selectDate?.isSame(currentDate, 'date'),
+            'hover:before:border-[1px_solid_#1677ff]': currentDate.isSame(moment(), 'date'),
           },
         )}
       >
@@ -38,17 +43,18 @@ const Birthday = ({ value, onChange }: IBirthdayProps) => {
           <div className="relative z-[1]">
             <div
               className={classNames('hlui-picker-calendar-date-value', {
-                '!text-white': selectDate?.isSame(date, 'date'),
+                '!text-white': selectDate?.isSame(currentDate, 'date'),
               })}
             >
-              {date.get('date')}
+              {currentDate.get('date')}
             </div>
             <div
               className={classNames(
                 'hlui-picker-calendar-date-content !text-right text-white opacity-90',
                 {
-                  '!text-black/25': date.isAfter(moment()) || !selectDate?.isSame(date, 'month'),
-                  '!text-white': selectDate?.isSame(date, 'date'),
+                  '!text-black/25':
+                    currentDate.isAfter(moment()) || !selectDate?.isSame(currentDate, 'month'),
+                  '!text-white': selectDate?.isSame(currentDate, 'date'),
                 },
               )}
             >
@@ -60,7 +66,7 @@ const Birthday = ({ value, onChange }: IBirthdayProps) => {
     );
   };
 
-  const monthFullCellRender: CalendarProps<Moment>['monthFullCellRender'] = (date) => {
+  const monthFullCellRender: CalendarProps<Moment>['monthFullCellRender'] = (currentDate) => {
     const month = '正_二_三_四_五_六_七_八_九_十_冬_腊'.split('_');
     return (
       <div
@@ -68,7 +74,7 @@ const Birthday = ({ value, onChange }: IBirthdayProps) => {
           'hlui-picker-cell-inner hlui-picker-calendar-date !rounded-[4px] hover:!border-transparent hover:bg-black/5',
           {
             '!bg-[#1677ff] hover:!bg-[#1677ff] hover:!opacity-80': selectDate?.isSame(
-              date,
+              currentDate,
               'month',
             ),
           },
@@ -76,11 +82,11 @@ const Birthday = ({ value, onChange }: IBirthdayProps) => {
       >
         <div
           className={classNames('hlui-picker-calendar-date-value py-[5px] text-black', {
-            '!text-white': selectDate?.isSame(date, 'month'),
-            'opacity-30': date.isAfter(moment()),
+            '!text-white': selectDate?.isSame(currentDate, 'month'),
+            'opacity-30': currentDate.isAfter(moment()),
           })}
         >
-          {date.get('month') + 1}月（{month[date.get('month')]}月）
+          {currentDate.get('month') + 1}月（{month[currentDate.get('month')]}月）
         </div>
         <div className="hlui-picker-calendar-date-content" />
       </div>
@@ -88,12 +94,12 @@ const Birthday = ({ value, onChange }: IBirthdayProps) => {
   };
 
   const onChangeDate = useCallback(
-    (date: Moment) => {
-      if (date.isValid() && !date.isSame(selectDate, 'day')) {
-        setDate(date.isValid() ? date.format('YYYY-MM-DD') : undefined);
-        setSelectDate(date.isValid() ? date : undefined);
+    (changedDate: Moment) => {
+      if (changedDate.isValid() && !changedDate.isSame(selectDate, 'day')) {
+        setDate(changedDate.isValid() ? changedDate.format('YYYY-MM-DD') : undefined);
+        setSelectDate(changedDate.isValid() ? changedDate : undefined);
 
-        onChange(date);
+        onChange(changedDate);
       }
     },
     [selectDate],
@@ -142,7 +148,7 @@ const Birthday = ({ value, onChange }: IBirthdayProps) => {
             monthFullCellRender={monthFullCellRender}
             value={selectDate}
             onChange={onChangeDate}
-            disabledDate={(date) => date.isAfter(moment())}
+            disabledDate={(current) => current.isAfter(moment())}
           />
         </div>
       </div>

@@ -1,5 +1,6 @@
 import classNames from 'classnames';
-import { CSSProperties, useEffect, useMemo, useState } from 'react';
+import type { CSSProperties} from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import BTween from 'b-tween';
 import uniqueId from 'lodash.uniqueid';
 
