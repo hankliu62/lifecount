@@ -15,13 +15,13 @@
 1. 克隆项目代码到本地
 
 ```bash
-git clone https://github.com/hankliu62/toolkits.git
+git clone https://github.com/hankliu62/lifecount.git
 ```
 
 2. 进入项目目录
 
 ```bash
-cd toolkits
+cd lifecount
 ```
 
 3. 安装项目依赖
