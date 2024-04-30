@@ -44,7 +44,7 @@ export default function App({ Component, pageProps }: AppPropsWithLayout) {
   return (
     <>
       <Head>
-        <title>人生一格 - H.L</title>
+        <title>人生一格 - H.L Toolkits</title>
         <link rel="icon" href={`${getRoutePrefix()}/favicon.ico`} />
         <meta
           name="description"
