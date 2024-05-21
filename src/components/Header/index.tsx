@@ -4,6 +4,7 @@ import Typed from 'typed.js';
 
 import { getRoutePrefix } from '@/utils/route';
 import Cloud from './cloud';
+import { PageSubTitle, PageTitle } from '@/constants';
 
 export interface IHeaderProps {
   className?: string;
@@ -47,10 +48,7 @@ export default function Header({ className }: IHeaderProps) {
   const descRef = useRef<HTMLSpanElement>();
   useEffect(() => {
     const typed = new Typed(descRef.current, {
-      strings: [
-        '人生是一条无止境的路，你永远不知道自己会遇到什么样的困难，但是你要相信，只要你勇敢地走过去，剩余的问题就显得微不足道了。',
-        '人生那就是一场永不落幕的演出，我们每一个人都是演员，只不过，有的人顺从自己，有的人取悦观众。',
-      ],
+      strings: PageSubTitle,
       typeSpeed: 100,
       backSpeed: 50,
       loop: true,
@@ -88,7 +86,7 @@ export default function Header({ className }: IHeaderProps) {
       <div className="relative z-10 px-6 py-16 sm:py-24 lg:px-8 lg:py-32">
         <h1 className="toolkits-title animate__animated animate__bounceInDown group/title select-none tracking-tight hover:cursor-pointer">
           <span className="block cursor-pointer text-center font-[about-title] text-4xl font-bold text-black hover:animate-[title-blur-change_2s_ease-out_forwards] sm:text-5xl lg:text-6xl">
-            H.L Toolkits - 人生一格
+            {PageTitle}
           </span>
 
           <svg className="hidden" width="0" height="0">
