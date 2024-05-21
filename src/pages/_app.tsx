@@ -18,6 +18,7 @@ import type { ReactElement, ReactNode } from 'react';
 import useTopWindow from '@/hooks/useTopWindow';
 import DefaultLayout from '@/layouts/index';
 import { getRoutePrefix } from '@/utils/route';
+import { PageDescription, PageKeywords, PageTitle } from '@/constants';
 
 import 'moment/locale/zh-cn';
 moment.locale('zh-cn');
@@ -44,17 +45,14 @@ export default function App({ Component, pageProps }: AppPropsWithLayout) {
   return (
     <>
       <Head>
-        <title>人生一格 - H.L Toolkits</title>
+        <title>{PageTitle.split(' - ').reverse().join(' - ')}</title>
         <link rel="icon" href={`${getRoutePrefix()}/favicon.ico`} />
-        <meta
-          name="description"
-          content="人生进度条，人生是一条无止境的路，你永远不知道自己会遇到什么样的困难，但是你要相信，只要你勇敢地走过去，剩余的问题就显得微不足道了。"
-        />
-        <meta
-          name="keywords"
-          content="人生一格,人生格式化,人生小格,toolkit,toolkits,前端开发,前端开发工具,前端开发工具集合,在线工具,toolbox,frontend,卡鲁秋,Hank,HankLiu"
-        />
+        <meta name="description" content={PageDescription} />
+        <meta name="keywords" content={PageKeywords.join(',')} />
         <meta name="author" content="Hank.Liu" />
+        <meta name="copyright" content="卡鲁秋" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <meta httpEquiv="X-UA-Compatible" content="IE=edge,chrome=1" />
       </Head>
 
       {getLayout(
