@@ -2,7 +2,7 @@ import AOS from 'aos';
 import React, { useEffect, useMemo, useState } from 'react';
 import type { Moment } from 'moment';
 import moment from 'moment';
-import { Card, Tooltip } from '@hankliu/hankliu-ui';
+import { Breadcrumb, Card, Tooltip } from '@hankliu/hankliu-ui';
 
 import Birthday from '@/components/Birthday';
 import {
@@ -13,6 +13,9 @@ import {
   InfoCircleOutlined,
 } from '@hankliu/icons';
 import classNames from 'classnames';
+import { PageTitle } from '@/constants';
+import { useRouter } from 'next/router';
+import useBreadcrumb from '@/hooks/useBreadcrumb';
 
 // 最大年龄
 const MaxAge = 100;
@@ -37,6 +40,10 @@ const RetireAge = 65;
  * @returns
  */
 export default function Index() {
+  const router = useRouter();
+
+  // 点击面包屑
+  const onClickBreadcrumb = useBreadcrumb();
   const [birthday, setBirthday] = useState<Moment>();
   const [current, setCurrent] = useState<Moment>(moment());
   // 过去多少年
@@ -318,6 +325,15 @@ export default function Index() {
 
   return (
     <div className="relative w-full text-white/75">
+      {!!router.query?.['with-breadcrumb'] && (
+        <Breadcrumb className="!m-6 !text-base" separator="/">
+          <Breadcrumb.Item>
+            <a onClick={onClickBreadcrumb}>小工具集合</a>
+          </Breadcrumb.Item>
+          <Breadcrumb.Item>{PageTitle.split('-').pop().trim()}</Breadcrumb.Item>
+        </Breadcrumb>
+      )}
+
       <div className="relative z-20 mx-auto mt-6 w-full max-w-[1920px]">
         <div className="flex flex-col flex-wrap">
           {/* 生日 */}
@@ -441,7 +457,7 @@ export default function Index() {
                   </div>
                 </Tooltip>
                 <div className="relative flex justify-center pt-4">
-                  <div className="grid-cols-20 grid-rows-20 grid w-[29.75rem] gap-1">
+                  <div className="grid w-[29.75rem] grid-cols-20 grid-rows-20 gap-1">
                     {grids?.map((item) => (
                       <Tooltip title={item.tooltip} key={item.key}>
                         <div
